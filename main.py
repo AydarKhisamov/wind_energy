@@ -294,7 +294,8 @@ submission = submission.merge(valid_features[[dt_col]], on=dt_col)
 if not os.path.isdir(SUBMISSION_PATH):
     os.mkdir(SUBMISSION_PATH)
 
-submission.to_csv(f'{SUBMISSION_PATH}/submission_1q.csv', index=False)
+submission = submission.sort_values(dt_col, ascending=False)
+submission[[target_col]].to_csv(f'{SUBMISSION_PATH}/submission_1q.csv', index=False)
 
 # чтение файла с актуальными данными
 last_day_df = pd.read_csv(f'{DATA_PATH}/3888f9f2-9bda-4b2c-94af-5562668bce86_test_dataset.csv')
@@ -340,6 +341,7 @@ while len(test_df) > 0:
     features = prepare_features(stats_df)
 
 submission = pd.concat(predictions, ignore_index=True)
-submission.to_csv(
+submission = submission.sort_values(dt_col, ascending=False)
+submission[[target_col]].to_csv(
     f'{SUBMISSION_PATH}/submission_18-05-2026.csv', index=False,
 )
