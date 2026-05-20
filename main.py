@@ -239,11 +239,10 @@ y_val = train_df.loc[val_idxs, target_col]
 
 # обучение модели и её сохранение по условию задачи
 model.fit(X=x_train, y=y_train, eval_set=(x_val, y_val))
-MODEL_PATH = 'models'
-if not os.path.isdir(MODEL_PATH):
-    os.mkdir(MODEL_PATH)
+if not os.path.isdir(MODELS_PATH):
+    os.mkdir(MODELS_PATH)
 
-model.save_model(f'{MODEL_PATH}/model.cbm')
+model.save_model(f'{MODELS_PATH}/model.cbm')
 
 # подготовка тестовой выборки
 valid_features = pd.read_csv(f'{DATA_PATH}/valid_features.csv')
